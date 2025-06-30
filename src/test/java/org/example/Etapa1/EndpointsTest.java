@@ -2,15 +2,14 @@ package org.example.Etapa1;
 
 import io.javalin.Javalin;
 import io.javalin.testtools.*;
+import okhttp3.RequestBody;
 import org.example.Etapa1Tarefas.ListaDeTarefas;
-import org.gradle.internal.impldep.org.apache.http.client.HttpClient;
 import org.junit.jupiter.api.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.*;
 import static org.junit.jupiter.api.Assertions.*;
-
 
 
 public class EndpointsTest {
@@ -45,26 +44,32 @@ public class EndpointsTest {
         Javalin app = createApp();
         ListaDeTarefas.EndPoints(app);
 
-        JavalinTest.test(app, (server, client) -> {
-            String jsonTarefa = """
-                {
-                  "titulo": "Estudar Javalin",
-                  "descricao": "Ler a documentação e fazer exemplos",
-                  "concluida": false
-                }
-                """;
+        String jsonTarefa = """
+            {
+              "titulo": "Estudar Javalin",
+              "descricao": "Ler a documentação e fazer exemplos",
+              "concluida": false
+            }
+            """;
 
-            var response = client.post(URL_GERAL+ "/tarefas", jsonTarefa);
-            //System.out.println(response.body().string());
-            assertEquals(201, response.code());
-        });
+        java.net.http.HttpClient client = java.net.http.HttpClient.newHttpClient();
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(URL_GERAL + "/tarefas"))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(jsonTarefa))
+                .build();
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        assertEquals(201, response.statusCode());
     }
 
 
     @Test
     @DisplayName("Etapa2 - item 3")
     public void testGetItemByIdReturnsCorrectItem() throws URISyntaxException, IOException, InterruptedException {
-        ListaDeTarefas.main(null);
+        Javalin app = createApp();
+        ListaDeTarefas.EndPoints(app);
 
         String json = """
             {
@@ -73,10 +78,10 @@ public class EndpointsTest {
             }
             """;
 
-        HttpClient client = HttpClient.newHttpClient();
+        java.net.http.HttpClient client = java.net.http.HttpClient.newHttpClient();
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(URL_BASE + "/tarefas"))
+                .uri(URI.create(URL_GERAL + "/tarefas"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(json))
                 .build();
@@ -88,7 +93,7 @@ public class EndpointsTest {
         String id = responseBody.replaceAll(".*\"id\"\\s*:\\s*\"([^\"]+)\".*", "$1");
 
         HttpRequest getRequest = HttpRequest.newBuilder()
-                .uri(new URI(URL_BASE + "/tarefas/" + id))
+                .uri(new URI(URL_GERAL  + "/tarefas/" + id))
                 .GET()
                 .build();
 
@@ -116,5 +121,4 @@ public class EndpointsTest {
             assertTrue(responseBody.startsWith("["));
         });
     }
-}
 }
