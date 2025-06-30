@@ -3,6 +3,7 @@ package org.example;
 import io.javalin.Javalin;
 import org.example.Etapa1.Endpoints;
 import org.example.Etapa1Tarefas.ListaDeTarefas;
+import org.example.Etapa3.Etapa3;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -12,15 +13,12 @@ public class Main {
         // Obs. Descomente apenas uma por vez
 
         // Do item 1 até o item 4
-        Etapa1();
+        //Etapa1();
 
         // Do item 5 até o item 6
         //Etapa1Tarefas();
 
-        //Etapa2();
-
-        //Etapa3();
-
+        Etapa3(args);
     }
 
     private static void Etapa1 () {
@@ -38,12 +36,8 @@ public class Main {
         ListaDeTarefas.EndPoints(app);
     }
 
-    private static void Etapa2 () {
-
-    }
-
-    private static void Etapa3 () {
-
-
+    private static void Etapa3(String[] args) {
+        Javalin app = Javalin.create().start(7000);
+        ListaDeTarefas.EndPoints(app);
     }
 }

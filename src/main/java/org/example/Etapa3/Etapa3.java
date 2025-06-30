@@ -16,7 +16,7 @@ public class Etapa3 {
         // Etapa 3: Exercícios com HttpURLConnection:
 
         // Item 1
-        // postNovaTarefa(conn,"Criar lista de cursos", "Buscar sites de estudo");
+        //postNovaTarefa(conn,"Criar lista de cursos", "Buscar sites de estudo");
 
         // Item 2
         //getAllItems(conn);
@@ -25,7 +25,7 @@ public class Etapa3 {
         //getTarefaPorId("usarUmIdDaListaDeTarefas");
 
         // Item 4
-        //getStatus();
+        getStatus();
     }
 
     // Consumo de API com HttpURLConnection
