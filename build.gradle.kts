@@ -1,11 +1,7 @@
 plugins {
     id("java")
 }
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
-    }
-}
+
 group = "org.example"
 version = "1.0-SNAPSHOT"
 

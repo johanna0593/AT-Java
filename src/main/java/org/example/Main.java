@@ -4,6 +4,8 @@ import io.javalin.Javalin;
 import org.example.Etapa1.Endpoints;
 import org.example.Etapa1Tarefas.ListaDeTarefas;
 
+//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
+// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
         // Para testar descomente a etapa desejada

@@ -1,1 +1,1 @@
-rootProject.name = "At"
+rootProject.name = "AT-Java2"
